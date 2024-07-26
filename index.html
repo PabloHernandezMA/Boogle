@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boggle Game</title>
+    <link rel="stylesheet" href="./estilos/styles.css">
+    <link rel="icon" type="image/x-icon" href="./recursos/imagenes/moneda-.ico">
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Boggle Game</h1>
+            <p>Desarrollado por <a href="https://github.com/BelenRamos">Ramos Belén</a> y <a href="https://github.com/PabloHernandezMA">Hernández Pablo</a></p>
+        </div>
+        <div>
+            <label for="lenguaje">Lenguaje:</label>
+            <select id="lenguaje">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <div id="start-screen">
+            <label for="player-name">Nombre del jugador:</label>
+            <input type="text" id="player-name">
+            <label for="game-time">Tiempo de juego:</label>
+            <select id="game-time">
+                <option value="1">1 minuto</option>
+                <option value="2">2 minutos</option>
+                <option value="3">3 minutos</option>
+            </select>
+            <button id="start-game">Comenzar juego</button>
+        </div>
+
+        <div id="game-screen" style="display:none;">
+            <label for="player-name-display">Nombre del jugador:</label>
+            <input type="text" id="player-name-display" readonly>
+            <label for="game-time-display">Tiempo de juego:</label>
+            <input type="text" id="game-time-display" readonly>
+            <button id="cancel-game">Cancelar partida</button>
+
+            <div id="board">
+                <!-- Boggle board will be generated here -->
+            </div>
+
+            <label for="input-word">Palabra ingresada:</label>
+            <input type="text" id="input-word">
+            <button id="validate-word">Validar palabra</button>
+
+            <div id="found-words">
+                <h2>Palabras encontradas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Palabra</th>
+                            <th>Puntaje</th>
+                        </tr>
+                    </thead>
+                    <tbody id="words-list">
+                        <!-- Found words will be listed here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="./subPaginas/contacto.html">Contacto - Reportar problema</a>
+        <a href="https://github.com/PabloHernandezMA/boogle" target="_blank">Repositorio del proyecto</a>
+    </footer>
+
+    <script src="./javaScript/script.js"></script>
+</body>
+</html>
