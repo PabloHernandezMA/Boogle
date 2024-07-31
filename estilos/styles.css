@@ -51,16 +51,15 @@ header select {
 }
 
 main {
-    margin-top: 50px;
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
 }
 
 footer {
-    margin-bottom: 15px;
+    margin: 25px 0px 15px 0px;
     display: flex;
     flex-flow: column wrap;
     gap: 15px;
