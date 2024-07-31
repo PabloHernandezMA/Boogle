@@ -31,10 +31,3 @@ async function buscarEnDiccionario(palabra) {
         return false;
     }
 }
-
-// Ejemplo de uso
-(async () => {
-    console.log(await validarPalabra("example")); // "Palabra válida y añadida a la lista"
-    console.log(await validarPalabra("example")); // "Palabra ya encontrada"
-    console.log(await validarPalabra("xyzabc")); // "El texto ingresado no se reconoce como palabra valida"
-})();

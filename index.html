@@ -42,6 +42,9 @@
             <input type="text" id="game-time-display" readonly>
             <button id="cancel-game">Cancelar partida</button>
 
+            <!-- Contenedor para el temporizador -->
+            <div id="timer-display">Tiempo restante: 00:00</div>
+
             <div id="board">
                 <!-- Boggle board will be generated here -->
             </div>
@@ -65,6 +68,9 @@
                 </table>
             </div>
         </div>
+
+        <!-- Contenedor para mensajes de error o información -->
+        <div id="message-container"></div>
     </main>
 
     <footer>
@@ -72,6 +78,9 @@
         <a href="https://github.com/PabloHernandezMA/boogle" target="_blank">Repositorio del proyecto</a>
     </footer>
 
+    <script src="./javaScript/utils.js"></script>
     <script src="./javaScript/script.js"></script>
+    <script src="./javaScript/juego.js"></script>
+    
 </body>
 </html>
