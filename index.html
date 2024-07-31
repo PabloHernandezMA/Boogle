@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boggle Game</title>
     <link rel="stylesheet" href="./estilos/styles.css">
+    <link rel="stylesheet" href="./estilos/main.css">
     <link rel="icon" type="image/x-icon" href="./recursos/imagenes/moneda-.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 </head>
 <body>
     <header>
-        <div>
+        <div id="cabecera">
             <h1>Boggle Game</h1>
             <p>Desarrollado por <a href="https://github.com/BelenRamos">Ramos Belén</a> y <a href="https://github.com/PabloHernandezMA">Hernández Pablo</a></p>
         </div>
@@ -23,6 +25,9 @@
     </header>
 
     <main>
+        <div id="tabs">
+            
+        </div>
         <div id="start-screen">
             <label for="player-name">Nombre del jugador:</label>
             <input type="text" id="player-name">
@@ -36,19 +41,24 @@
         </div>
 
         <div id="game-screen" style="display:none;">
-            <label for="player-name-display">Nombre del jugador:</label>
-            <input type="text" id="player-name-display" readonly>
-            <label for="game-time-display">Tiempo de juego:</label>
-            <input type="text" id="game-time-display" readonly>
-            <button id="cancel-game">Cancelar partida</button>
-
-            <div id="board">
-                <!-- Boggle board will be generated here -->
+            <div> 
+                <div>
+                    <label for="player-name-display">Nombre del jugador:</label>
+                    <input type="text" id="player-name-display" readonly>
+                    <label for="game-time-display">Tiempo de juego:</label>
+                    <input type="text" id="game-time-display" readonly>
+                    <button id="cancel-game">Cancelar partida</button>
+                </div>
+    
+                <div id="board">
+                    <!-- Boggle board will be generated here -->
+                </div>
+                <div>
+                    <label for="input-word">Palabra ingresada:</label>
+                    <input type="text" id="input-word">
+                    <button id="validate-word">Validar palabra</button>
+                </div>
             </div>
-
-            <label for="input-word">Palabra ingresada:</label>
-            <input type="text" id="input-word">
-            <button id="validate-word">Validar palabra</button>
 
             <div id="found-words">
                 <h2>Palabras encontradas</h2>

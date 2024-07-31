@@ -1,40 +1,81 @@
-body {
-    font-family: Arial, sans-serif;
+#start-screen, #game-screen {
+  display: inline-block;
+  padding: 20px;
+  background-color: #222222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
-  }
-  
-  .active, .accordion:hover {
-    background-color: #ccc;
-  }
-  
-  .accordion:after {
-    content: '\002B';
-    color: #777;
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-  }
-  
-  .active:after {
-    content: "\2212";
-  }
-  
-  .panel {
-    padding: 0 18px;
-    background-color: white;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-  }
+#start-screen input, #start-screen select, #game-screen input {
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #555;
+  color: white;
+}
+
+#start-screen button, #game-screen button {
+  background-color: #1E90FF;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#start-screen button:hover, #game-screen button:hover {
+  background-color: #1C86EE;
+}
+
+#game-screen {
+  display: none;
+  flex-flow: row nowrap;
+}
+
+#game-screen label, #game-screen input, #game-screen button {
+  margin-top: 10px;
+}
+
+#cancel-game {
+  background-color: #FF4500;
+  margin-bottom: 20px;
+}
+
+#cancel-game:hover {
+  background-color: #FF6347;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+#board div {
+  background-color: #477947;
+  padding: 20px;
+  font-size: 1.5em;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+#found-words {
+  width: 100%;
+}
+
+#found-words table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+#found-words th, #found-words td {
+  border: 1px solid #1E90FF;
+  padding: 10px;
+}
