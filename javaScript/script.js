@@ -139,9 +139,21 @@ function validateWord() {
             wordsList.appendChild(wordItem);
         }
         mostrarMensaje(result);
+        
+        // Limpiar el campo de texto después de la validación
         document.getElementById('input-word').value = '';
+
+        // Limpiar la selección de celdas
+        clearSelectedCells();
     }).catch(function(error) {
         console.error('Error al validar la palabra:', error);
         mostrarMensaje('Error al validar la palabra.');
     });
+}
+
+// Función para limpiar la selección de celdas
+function clearSelectedCells() {
+    selectedCells.forEach(cell => cell.classList.remove('selected'));
+    selectedCells = [];
+    selectedLetters = [];
 }
