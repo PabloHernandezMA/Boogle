@@ -85,10 +85,11 @@
                     <label for="player-name-display">Nombre del jugador:</label>
                     <input type="text" id="player-name-display" readonly>
                 </div>
-                    <label for="game-time-display">Tiempo de juego:</label>
-                    <input type="text" id="game-time-display" readonly>
+                <label for="game-time-display">Tiempo de juego:</label>
+                <input type="text" id="game-time-display" readonly>
+                <div id="timer-display">Tiempo restante: 00:00</div> <!-- Agregado para mostrar el temporizador -->
                 <div>
-                <button id="cancel-game">Cancelar partida</button>
+                    <button id="cancel-game">Cancelar partida</button>
                 </div>
                 <div id="board">
                     <!-- El tablero de Boggle se generará aquí -->
@@ -100,6 +101,7 @@
                 </div>
             </div>
         </div>
+        
         <div id="found-words" style="display: none;">
             <div>
                 <h2>Palabras encontradas</h2>
@@ -134,10 +136,10 @@
         <a href="https://github.com/PabloHernandezMA/boogle" target="_blank">Repositorio del proyecto</a>
     </footer>
 
+    <script src="./javaScript/logicaCeldas.js"></script>
     <script src="./javaScript/utils.js"></script>
     <script src="./javaScript/script.js"></script>
     <script src="./javaScript/juego.js"></script>
-    <script src="./javaScript/logicaCeldas.js"></script>
     <script src="./javaScript/tabs.js"></script>
     
 </body>
