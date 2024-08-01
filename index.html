@@ -78,7 +78,7 @@
             </select>
             <button id="start-game">Comenzar juego</button>
         </div>
-
+        
         <div id="game-screen" style="display:none;">
             <div> 
                 <div>
@@ -88,17 +88,20 @@
                 <label for="game-time-display">Tiempo de juego:</label>
                 <input type="text" id="game-time-display" readonly>
                 <div id="timer-display">Tiempo restante: 00:00</div> <!-- Agregado para mostrar el temporizador -->
+
                 <div>
                     <button id="cancel-game">Cancelar partida</button>
                 </div>
+                
                 <div id="board">
                     <!-- El tablero de Boggle se generará aquí -->
                 </div>
                 <div>
                     <label for="input-word">Palabra ingresada:</label>
-                    <input type="text" id="input-word">
+                    <input type="text" id="input-word" readonly>
                     <button id="validate-word">Validar palabra</button>
                 </div>
+                
             </div>
         </div>
         
@@ -126,13 +129,21 @@
                 <div id="puntaje-total"><p>Puntaje total: 0</p></div>
             </div>
         </div>
-
         <!-- Contenedor para mensajes de error o información -->
-        <div id="message-container"></div>
+        <!-- <div id="message-container"></div> -->
+        <!-- Modal para mensajes -->
+        <div id="message-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <p id="modal-message"></p>
+            </div>
+        </div>
+
+
     </main>
 
     <footer>
-        <a href="./subPaginas/contacto.html">Contacto - Reportar problema</a>
+        <a href="./subPaginas/contacto.html" target="_blank">Contacto - Reportar problema</a>
         <a href="https://github.com/PabloHernandezMA/boogle" target="_blank">Repositorio del proyecto</a>
     </footer>
 

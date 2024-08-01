@@ -9,13 +9,13 @@
 }
 
 .board-cell.selected {
-  background-color: red; /* Color para la celda seleccionada */
+  background-color: yellow; /* Color para las celdas seleccionadas */
+}
+
+.board-cell.last-selected {
+  border: 2px solid red; /* Borde para la última celda seleccionada */
 }
 
 .board-cell.continuous {
-  border: 2px solid yellow; /* Borde amarillo para celdas clickeables */
-}
-
-.board-cell.continuous.selected {
-  background-color: lightgreen; /* Color para la celda anterior cuando se selecciona una nueva */
+  background-color: violet; /* Color para las celdas adyacentes */
 }

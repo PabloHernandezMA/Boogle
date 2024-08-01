@@ -1,84 +1,94 @@
 // Variables globales para gestionar el estado de la selección
-let selectedCells = [];
-let selectedLetters = [];
+var selectedCells = [];
+var lastSelectedCell = null;
 
 // Función para manejar el clic en una celda
+// Función para manejar el clic en una celda
 function handleCellClick(event) {
-    const cell = event.target;
+    var cell = event.target;
+    var idx = Array.from(cell.parentElement.children).indexOf(cell);
 
-    if (cell.classList.contains('board-cell')) {
-        // Añadir o quitar la celda de la selección
-        if (selectedCells.includes(cell)) {
-            deselectCell(cell);
-        } else {
-            selectCell(cell);
-        }
-    }
-}
+    if (
+        selectedCells.length > 0 &&
+        (!cell.classList.contains("selectable") || selectedCells.includes(cell))
+    )
+        return;
 
-// Función para seleccionar una celda
-function selectCell(cell) {
-    cell.classList.add('selected');
+    cell.classList.add("selected");
     selectedCells.push(cell);
-    selectedLetters.push(cell.textContent);
 
-    // Actualizar el campo de texto con las letras seleccionadas
-    document.getElementById('input-word').value = selectedLetters.join('');
-
-    // Pintar las celdas continuas
-    paintContinuousCells(cell);
-}
-
-// Función para deseleccionar una celda
-function deselectCell(cell) {
-    cell.classList.remove('selected');
-    const index = selectedCells.indexOf(cell);
-    if (index !== -1) {
-        selectedCells.splice(index, 1);
-        selectedLetters.splice(index, 1);
+    if (lastSelectedCell) {
+        lastSelectedCell.classList.remove("last-selected");
     }
 
-    // Actualizar el campo de texto con las letras restantes
-    document.getElementById('input-word').value = selectedLetters.join('');
+    cell.classList.add("last-selected");
+    lastSelectedCell = cell;
+
+    updateSelectableCells(idx);
+    updateCurrentWord();
+
+    // Verificar si las celdas seleccionadas son adyacentes
+    if (!areCellsAdjacent(selectedCells)) {
+        mostrarMensaje('Las celdas seleccionadas no son adyacentes.');
+        clearSelectedCells(); // Limpiar selección
+    }
 }
 
-// Función para pintar las celdas continuas
-function paintContinuousCells(cell) {
-    // Resetear el color de las celdas antes de pintar las nuevas
-    document.querySelectorAll('.board-cell').forEach(c => c.classList.remove('continuous'));
 
-    // Obtener la posición de la celda seleccionada
-    const index = Array.from(cell.parentElement.children).indexOf(cell);
-    const row = Math.floor(index / 4);
-    const col = index % 4;
+// Función para actualizar las celdas seleccionables //HAY QUE ARREGLARLO
+function updateSelectableCells(lastSelectedIdx) {
+    var SIZE = 4;
+    document.querySelectorAll(".board-cell").forEach(function(cell) {
+        cell.classList.remove("selectable");
+    });
 
-    // Función recursiva para buscar celdas continuas
-    function searchCells(r, c) {
-        const currentIndex = r * 4 + c;
-        const currentCell = document.querySelector(`.board-cell:nth-child(${currentIndex + 1})`);
-        if (!currentCell || currentCell.classList.contains('continuous')) return;
-
-        currentCell.classList.add('continuous');
-        selectedCells.forEach(selectedCell => {
-            const selectedIndex = Array.from(selectedCell.parentElement.children).indexOf(selectedCell);
-            const sr = Math.floor(selectedIndex / 4);
-            const sc = selectedIndex % 4;
-
-            // Verificar si la celda está adyacente
-            if (Math.abs(sr - r) <= 1 && Math.abs(sc - c) <= 1) {
-                searchCells(sr, sc);
-            }
+    if (!lastSelectedCell) {
+        document.querySelectorAll(".board-cell").forEach(function(cell) {
+            cell.classList.add("selectable");
         });
+        return;
     }
 
-    searchCells(row, col);
+    var row = Math.floor(lastSelectedIdx / SIZE);
+    var col = lastSelectedIdx % SIZE;
+
+    var positions = [
+        { row: row - 1, col: col },
+        { row: row + 1, col: col },
+        { row: row, col: col - 1 },
+        { row: row, col: col + 1 },
+        { row: row - 1, col: col - 1 },
+        { row: row - 1, col: col + 1 },
+        { row: row + 1, col: col - 1 },
+        { row: row + 1, col: col + 1 },
+    ];
+
+    positions.forEach(function(pos) {
+        if (pos.row >= 0 && pos.row < SIZE && pos.col >= 0 && pos.col < SIZE) {
+            var adjacentIdx = pos.row * SIZE + pos.col;
+            var adjacentCell = document.querySelectorAll(".board-cell")[adjacentIdx];
+            if (!selectedCells.includes(adjacentCell)) {
+                adjacentCell.classList.add("selectable");
+            }
+        }
+    });
+}
+
+// Función para actualizar la palabra actual en el campo de texto
+function updateCurrentWord() {
+    var selectedLetters = selectedCells.map(function(cell) {
+        return cell.textContent;
+    });
+    document.getElementById('input-word').value = selectedLetters.join('');
 }
 
 // Función para inicializar el juego
 function initializeGame() {
-    const board = document.getElementById('board');
+    var board = document.getElementById('board');
     board.addEventListener('click', handleCellClick);
 }
+
+
 
 // Inicializar el juego
 initializeGame();
