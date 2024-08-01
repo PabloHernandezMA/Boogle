@@ -33,6 +33,7 @@ function startGame() {
 
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'flex';
+    document.getElementById('found-words').style.display = 'flex';
 
     generateBoard(); // Generar el tablero después de comenzar el juego
 

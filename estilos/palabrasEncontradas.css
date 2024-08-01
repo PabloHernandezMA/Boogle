@@ -1,0 +1,71 @@
+#found-words {
+  width: 100%;
+  max-width: 450px;
+  min-height: 57px;
+  padding: 20px;
+  background-color: #222222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#found-words div {
+    width: 100%;
+}
+
+#found-words table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+#found-words thead {
+    background-color: rgb(58, 58, 58);
+}
+
+#found-words th,
+#found-words td {
+  border: 1px solid rgb(79, 79, 79);
+  padding: 10px;
+}
+
+#found-words p {
+    margin-top: 15px;
+}
+
+
+@media screen and (max-width: 600px) {
+    #found-words {
+        width: 100%;
+    }
+    
+    #found-words table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    #found-words  thead {
+        display: none;
+    }
+
+    #found-words tr {
+        margin-bottom: 10px;
+        display: block;
+        border: 1px solid rgb(250, 250, 250);
+    }
+
+    #found-words td {
+        display: block;
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    #found-words td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px);
+        padding-right: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+}

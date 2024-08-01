@@ -1,7 +1,7 @@
 #tabs {
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
+    width: 100%;
+    max-width: 450px;
+    min-height: 57px;
     padding: 20px;
     background-color: #222222;
     border-radius: 10px;
@@ -60,14 +60,31 @@
 #tabs th, td {
     padding: 10px;
     text-align: left;
-    border: 1px solid #2cb956;
+    border: 1px solid rgb(79, 79, 79);
 }
 
 #tabs thead {
-    background-color: #15c344;
+    background-color: rgb(58, 58, 58);
+}
+
+#reglas-tab  li {
+    text-align: left;
+    list-style: none;
+}
+
+#lista {
+    padding: 5px 5px 5px 25px;
+}
+
+#lista li {
+    list-style: circle;
 }
 
 @media screen and (max-width: 600px) {
+    #tabs {
+        width: 100%;
+    }
+    
     #tabs table, thead, tbody, th, td, tr {
         display: block;
     }
@@ -79,7 +96,7 @@
     #tabs tr {
         margin-bottom: 10px;
         display: block;
-        border: 1px solid #e70909;
+        border: 1px solid rgb(250, 250, 250);
     }
 
     #tabs td {

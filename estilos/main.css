@@ -1,6 +1,27 @@
-#start-screen, #game-screen {
+main {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 15px;
+}
+#start-screen
+{
   display: inline-block;
   padding: 20px;
+  background-color: #222222;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+ #game-screen {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  padding: 20px;
+  flex-flow: column;
+  justify-content: center;
   background-color: #222222;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -65,17 +86,10 @@
   color: white;
 }
 
-#found-words {
-  width: 100%;
-}
-
-#found-words table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
-}
-
-#found-words th, #found-words td {
-  border: 1px solid #1E90FF;
-  padding: 10px;
+@media (max-width: 900px) {
+  main {
+    margin-top: 15px;
+    gap: 15px;
+    justify-content: center;
+  }
 }

@@ -50,25 +50,6 @@ header select {
     border-radius: 5px;
 }
 
-main {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-}
-
-footer {
-    margin: 25px 0px 15px 0px;
-    display: flex;
-    flex-flow: column wrap;
-    gap: 15px;
-}
-
-footer a {
-    color: #1E90FF;
-}
-
 @media (max-width: 850px) {
     header {
       flex-direction: column;

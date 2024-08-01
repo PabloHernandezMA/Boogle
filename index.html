@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boggle Game</title>
-    <link rel="stylesheet" href="./estilos/styles.css">
-    <link rel="stylesheet" href="./estilos/tabs.css">
+    <link rel="stylesheet" href="./estilos/normalize.css">
+    <link rel="stylesheet" href="./estilos/header.css">
     <link rel="stylesheet" href="./estilos/main.css">
+    <link rel="stylesheet" href="./estilos/tabs.css">
+    <link rel="stylesheet" href="./estilos/footer.css">
+    <link rel="stylesheet" href="./estilos/palabrasEncontradas.css">
     <link rel="icon" type="image/x-icon" href="./recursos/imagenes/moneda-.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 </head>
@@ -53,20 +56,12 @@
                                 <td data-label="Fecha">2024-07-29</td>
                                 <td data-label="Puntaje">88</td>
                             </tr>
-                            <!-- Más filas según sea necesario -->
                         </tbody>
                     </table>
                 </div>
         
                 <div id="reglas-tab" class="tab">
-                    <ul>
-                        <li>Cada partida dura 3 minutos.</li>
-                        <li>Las palabras deben tener al menos 3 letras.</li>
-                        <li>No se permiten palabras repetidas.</li>
-                        <li>Las palabras se forman siguiendo las letras adyacentes.</li>
-                        <li>El jugador con más puntos al final gana.</li>
-                        <!-- Agrega más reglas según sea necesario -->
-                    </ul>
+                    <ul> <li>El juego comienza al ordenarse las letras en la cuadrícula, momento que coincide con el inicio del temporizador (que puede setearse de 1, 2 o 3 minutos).</li> <li>Para buscar las palabras se deben tener en cuenta los siguientes criterios: <ul id="lista"> <li>Las palabras deben tener al menos tres letras.</li> <li>Cada letra después de la primera debe ser vecina horizontal, vertical o diagonal de la anterior.</li> <li>Ninguna casilla de letras individual se puede utilizar más de una vez en una palabra.</li> <li>Se permiten múltiples formas de la misma palabra, como formas singulares y plurales y otras derivaciones. No se aceptan nombres propios, artículos ni pronombres.</li> <li>Se permiten palabras dentro de palabras, como "casa" y "casamiento".</li> </ul> </li> <li>El jugador, debe ir guardando cada palabra que encuentra de tal manera que se vaya generando una puntuación, hasta que finalice el tiempo de juego.</li> <li>Las palabras ingresadas deben ser palabras reales (deben existir en el diccionario desde el cual se está consumiendo la data), de lo contrario, habrá una penalización (se restará tiempo de la partida)</li> </ul>
                 </div>
             </div>
         </div>
@@ -88,11 +83,12 @@
                 <div>
                     <label for="player-name-display">Nombre del jugador:</label>
                     <input type="text" id="player-name-display" readonly>
+                </div>
                     <label for="game-time-display">Tiempo de juego:</label>
                     <input type="text" id="game-time-display" readonly>
-                    <button id="cancel-game">Cancelar partida</button>
+                <div>
+                <button id="cancel-game">Cancelar partida</button>
                 </div>
-    
                 <div id="board">
                     <!-- Boggle board will be generated here -->
                 </div>
@@ -102,8 +98,9 @@
                     <button id="validate-word">Validar palabra</button>
                 </div>
             </div>
-
-            <div id="found-words">
+        </div>
+        <div id="found-words" style="display: none;">
+            <div>
                 <h2>Palabras encontradas</h2>
                 <table>
                     <thead>
@@ -113,9 +110,17 @@
                         </tr>
                     </thead>
                     <tbody id="words-list">
-                        <!-- Found words will be listed here -->
+                        <tr>
+                            <td data-label="Palabra">CASA</td>
+                            <td data-label="Puntaje">1</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Palabra">FAMA</td>
+                            <td data-label="Puntaje">1</td>
+                        </tr>
                     </tbody>
                 </table>
+                <div id="puntaje-total"><p>Puntaje total: 0</p></div>
             </div>
         </div>
 
