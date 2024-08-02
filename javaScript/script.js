@@ -76,14 +76,14 @@ function iniciarTemporizador(segundos) {
 
     
 
-    function actualizarTemporizador() {
+function actualizarTemporizador() {
         var minutos = Math.floor(tiempoRestante / 60);
         var segundos = tiempoRestante % 60;
         document.getElementById('timer-display').textContent = 
             'Tiempo restante: ' + 
             (minutos < 10 ? '0' + minutos : minutos) + ':' + 
             (segundos < 10 ? '0' + segundos : segundos);
-    }
+}
 
     function cancelGame() {
         document.getElementById('player-name').value = '';
@@ -137,7 +137,7 @@ function iniciarTemporizador(segundos) {
         return letras;
     }
 
-    // Dentro de la función validateWord
+
 function validateWord() {
     var inputWord = document.getElementById('input-word').value.trim().toUpperCase();
     if (!inputWord) {
@@ -148,7 +148,21 @@ function validateWord() {
     // Aquí debes llamar a la función de validación de palabra con la API
     validarPalabra(inputWord).then(function(result) {
         if (result === 'Palabra válida y añadida a la lista') {
-            var wordScore = inputWord.length; // Simple scoring by length
+            var wordLength = inputWord.length;
+            var wordScore = 0;
+
+            // Asignar puntaje según la longitud de la palabra
+            if (wordLength === 3 || wordLength === 4) {
+                wordScore = 1;
+            } else if (wordLength === 5) {
+                wordScore = 2;
+            } else if (wordLength === 6) {
+                wordScore = 3;
+            } else if (wordLength === 7) {
+                wordScore = 5;
+            } else if (wordLength >= 8) {
+                wordScore = 11;
+            }
 
             // Llamar a la función de puntaje en puntaje.js
             addScore(wordScore);
@@ -177,6 +191,7 @@ function validateWord() {
         mostrarMensaje('Error al validar la palabra.');
     });
 }
+
 
 // Dentro de la función finalizarJuego
 function finalizarJuego() {
