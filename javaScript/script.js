@@ -15,50 +15,65 @@ fetch('./recursos/diccionarios/english-dictionary/palabrasIngles.json')
     });
 
 // Eventos
-document.getElementById('start-game').addEventListener('click', startGame);
-    document.getElementById('cancel-game').addEventListener('click', cancelGame);
-    document.getElementById('validate-word').addEventListener('click', validateWord);
+document.getElementById('validate-word').addEventListener('click', validateWord);
+document.getElementById('start-game').addEventListener('click', function() {
+    startGame();
+    updateRanking(); // Mover esta llamada si también se usa en el inicio del juego
+});
 
-    function startGame() {
-        var playerName = document.getElementById('player-name').value;
-        var gameTime = parseInt(document.getElementById('game-time').value, 10);
+document.getElementById('cancel-game').addEventListener('click', cancelGame);
 
-        if (!playerName) {
-            mostrarMensaje('Por favor, ingresa tu nombre.');
-            return;
+
+function startGame() {
+    var playerName = document.getElementById('player-name').value;
+    var gameTime = parseInt(document.getElementById('game-time').value, 10);
+
+    if (!playerName) {
+        mostrarMensaje('Por favor, ingresa tu nombre.');
+        return;
+    }
+
+    document.getElementById('player-name-display').value = playerName;
+    document.getElementById('game-time-display').value = gameTime + ' minutos';
+
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('game-screen').style.display = 'flex';
+    document.getElementById('found-words').style.display = 'flex';
+
+    generateBoard(); // Generar el tablero después de comenzar el juego
+
+    // Iniciar el temporizador
+    iniciarTemporizador(gameTime * 60); // Convertir minutos a segundos
+}
+
+function finalizarJuego() {
+    // Guardar el puntaje y actualizar el ranking al finalizar el juego
+    saveScore();
+
+    // Mostrar mensaje de fin de juego y reiniciar el estado del juego
+    mostrarMensaje('¡El tiempo se ha acabado!');
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'block';
+    
+    // Reiniciar puntaje total
+    puntajeTotal = 0;
+    document.getElementById('puntaje-total').querySelector('p').textContent = 'Puntaje total: 0';
+}
+
+// Asegúrate de llamar a finalizarJuego en el temporizador
+function iniciarTemporizador(segundos) {
+    tiempoRestante = segundos;
+    actualizarTemporizador();
+    timer = setInterval(function() {
+        tiempoRestante--;
+        if (tiempoRestante <= 0) {
+            clearInterval(timer);
+            finalizarJuego(); // Llama a finalizarJuego cuando el tiempo se acabe
         }
-
-        document.getElementById('player-name-display').value = playerName;
-        document.getElementById('game-time-display').value = gameTime + ' minutos';
-
-        document.getElementById('start-screen').style.display = 'none';
-        document.getElementById('game-screen').style.display = 'flex';
-        document.getElementById('found-words').style.display = 'flex';
-
-        generateBoard(); // Generar el tablero después de comenzar el juego
-
-        // Iniciar el temporizador
-        iniciarTemporizador(gameTime * 60); // Convertir minutos a segundos
-    }
-
-    function iniciarTemporizador(segundos) {
-        tiempoRestante = segundos;
         actualizarTemporizador();
-        timer = setInterval(function() {
-            tiempoRestante--;
-            if (tiempoRestante <= 0) {
-                clearInterval(timer);
-                mostrarMensaje('¡El tiempo se ha acabado!');
-    
-                // Hacer que el tablero desaparezca
-                document.getElementById('board').style.display = 'none';
-                document.getElementById('timer-display').style.display = 'none'; // Opcional: Ocultar el temporizador
-    
-                // Puedes agregar lógica adicional para finalizar el juego aquí
-            }
-            actualizarTemporizador();
-        }, 1000);
-    }
+    }, 1000);
+}
+
     
 
     function actualizarTemporizador() {
@@ -122,40 +137,61 @@ document.getElementById('start-game').addEventListener('click', startGame);
         return letras;
     }
 
-    function validateWord() {
-        var inputWord = document.getElementById('input-word').value.trim().toUpperCase();
-        if (!inputWord) {
-            mostrarMensaje('Por favor, ingresa una palabra.');
-            return;
-        }
-
-        // Aquí debes llamar a la función de validación de palabra con la API
-        validarPalabra(inputWord).then(function(result) {
-            if (result === 'Palabra válida y añadida a la lista') {
-                var wordsList = document.getElementById('words-list');
-                var wordItem = document.createElement('tr');
-                var wordCell = document.createElement('td');
-                var scoreCell = document.createElement('td');
-
-                wordCell.textContent = inputWord;
-                scoreCell.textContent = inputWord.length; // Simple scoring by length
-
-                wordItem.appendChild(wordCell);
-                wordItem.appendChild(scoreCell);
-                wordsList.appendChild(wordItem);
-            }
-            mostrarMensaje(result);
-            
-            // Limpiar el campo de texto después de la validación
-            document.getElementById('input-word').value = '';
-
-            // Limpiar la selección de celdas
-            clearSelectedCells();
-        }).catch(function(error) {
-            console.error('Error al validar la palabra:', error);
-            mostrarMensaje('Error al validar la palabra.');
-        });
+    // Dentro de la función validateWord
+function validateWord() {
+    var inputWord = document.getElementById('input-word').value.trim().toUpperCase();
+    if (!inputWord) {
+        mostrarMensaje('Por favor, ingresa una palabra.');
+        return;
     }
+
+    // Aquí debes llamar a la función de validación de palabra con la API
+    validarPalabra(inputWord).then(function(result) {
+        if (result === 'Palabra válida y añadida a la lista') {
+            var wordScore = inputWord.length; // Simple scoring by length
+
+            // Llamar a la función de puntaje en puntaje.js
+            addScore(wordScore);
+
+            var wordsList = document.getElementById('words-list');
+            var wordItem = document.createElement('tr');
+            var wordCell = document.createElement('td');
+            var scoreCell = document.createElement('td');
+
+            wordCell.textContent = inputWord;
+            scoreCell.textContent = wordScore;
+
+            wordItem.appendChild(wordCell);
+            wordItem.appendChild(scoreCell);
+            wordsList.appendChild(wordItem);
+        }
+        mostrarMensaje(result);
+        
+        // Limpiar el campo de texto después de la validación
+        document.getElementById('input-word').value = '';
+
+        // Limpiar la selección de celdas
+        clearSelectedCells();
+    }).catch(function(error) {
+        console.error('Error al validar la palabra:', error);
+        mostrarMensaje('Error al validar la palabra.');
+    });
+}
+
+// Dentro de la función finalizarJuego
+function finalizarJuego() {
+    // Guardar el puntaje y actualizar el ranking al finalizar el juego
+    saveScore();
+
+    // Mostrar mensaje de fin de juego y reiniciar el estado del juego
+    mostrarMensaje('¡El tiempo se ha acabado!');
+    document.getElementById('game-screen').style.display = 'none';
+    document.getElementById('start-screen').style.display = 'block';
+    
+    // Reiniciar puntaje total
+    resetScore();
+}
+
 
     // Función para limpiar la selección de celdas
     function clearSelectedCells() {
