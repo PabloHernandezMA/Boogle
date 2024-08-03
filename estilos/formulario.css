@@ -1,15 +1,19 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: rgb(51, 51, 51);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    color: rgb(255, 255, 255);
 }
 
 .contact-form {
-    background-color: #fff;
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+    background-color: rgb(34, 34, 34);
     padding: 70px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -17,28 +21,34 @@ body {
     max-width: 400px;
 }
 
+.contact-form h2 {
+    align-self: center;
+}
+
 .contact-form input, .contact-form textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(204, 204, 204);
     border-radius: 5px;
 }
 
 .contact-form button {
     padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
+    background-color: rgb(40, 167, 69);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    max-width: fit-content;
+    align-self: center;
 }
 
 .contact-form button:hover {
-    background-color: #218838;
+    background-color: rgb(33, 136, 56);
 }
 
 .error {
-    color: red;
+    color: rgb(255, 0, 0);
     font-size: 0.875em;
 }

@@ -51,5 +51,13 @@ function manejarSubmit(event) {
     }
 }
 
+// Función para redirigir al index
+function regresarAlIndex() {
+    window.location.href = '../index.html';
+}
+
 // Escuchar el evento submit del formulario
 document.getElementById('formularioContacto').addEventListener('submit', manejarSubmit);
+
+// Escuchar el clic del botón de regresar
+document.getElementById('btnRegresar').addEventListener('click', regresarAlIndex);
