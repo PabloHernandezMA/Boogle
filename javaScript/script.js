@@ -17,14 +17,13 @@ fetch('./recursos/diccionarios/english-dictionary/palabrasIngles.json')
 // Eventos
 document.getElementById('validate-word').addEventListener('click', validateWord);
 document.getElementById('start-game').addEventListener('click', function() {
-    startGame();
+    startNewGame();
     updateRanking(); // Mover esta llamada si también se usa en el inicio del juego
 });
 
 document.getElementById('cancel-game').addEventListener('click', cancelGame);
 
-
-function startGame() {
+function startNewGame() {
     var playerName = document.getElementById('player-name').value;
     var gameTime = parseInt(document.getElementById('game-time').value, 10);
 
@@ -40,12 +39,14 @@ function startGame() {
     document.getElementById('game-screen').style.display = 'flex';
     document.getElementById('found-words').style.display = 'flex';
 
-    generateBoard(); // Generar el tablero después de comenzar el juego
+    // Generar un nuevo tablero
+    generateBoard();
 
     // Iniciar el temporizador
     iniciarTemporizador(gameTime * 60); // Convertir minutos a segundos
 }
 
+// Función para finalizar el juego
 function finalizarJuego() {
     // Guardar el puntaje y actualizar el ranking al finalizar el juego
     saveScore();
@@ -56,8 +57,7 @@ function finalizarJuego() {
     document.getElementById('start-screen').style.display = 'block';
     
     // Reiniciar puntaje total
-    puntajeTotal = 0;
-    document.getElementById('puntaje-total').querySelector('p').textContent = 'Puntaje total: 0';
+    resetScore();
 }
 
 // Asegúrate de llamar a finalizarJuego en el temporizador
