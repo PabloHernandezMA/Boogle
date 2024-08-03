@@ -2,32 +2,42 @@ var palabrasEncontradas = [];
 var APIdiccionario = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 async function validarPalabra(palabra) {
-    if (buscarEnPalabrasEncontradas(palabra)) {
+    // Convertir la palabra a minúsculas para la consistencia
+    var palabraLower = palabra.toLowerCase();
+
+    // Verificar si la palabra ya ha sido encontrada
+    if (buscarEnPalabrasEncontradas(palabraLower)) {
         return "Palabra ya encontrada";
     }
     
-    var esPalabraValida = await buscarEnDiccionario(palabra);
+    // Verificar si la palabra es válida mediante la API del diccionario
+    var esPalabraValida = await buscarEnDiccionario(palabraLower);
     if (!esPalabraValida) {
-        return "El texto ingresado no se reconoce como palabra valida";
+        return "El texto ingresado no se reconoce como palabra válida";
     }
 
-    palabrasEncontradas.push(palabra);
+    // Agregar la palabra a la lista de palabras encontradas
+    palabrasEncontradas.push(palabraLower);
     return "Palabra válida y añadida a la lista";
 }
 
 function buscarEnPalabrasEncontradas(palabra) {
-    return palabrasEncontradas.includes(palabra.toLowerCase());
+    // Comprobar si la palabra está en el array
+    return palabrasEncontradas.includes(palabra);
 }
 
 async function buscarEnDiccionario(palabra) {
     try {
-        var response = await fetch(APIdiccionario + palabra.toLowerCase());
+        // Hacer la solicitud a la API del diccionario
+        var response = await fetch(APIdiccionario + palabra);
         if (!response.ok) {
             throw new Error("Palabra no encontrada");
         }
         var data = await response.json();
+        // Devolver true si se encuentran resultados
         return data.length > 0;
     } catch (error) {
+        // Devolver false en caso de error
         return false;
     }
 }

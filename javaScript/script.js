@@ -74,7 +74,6 @@ function iniciarTemporizador(segundos) {
     }, 1000);
 }
 
-    
 
 function actualizarTemporizador() {
         var minutos = Math.floor(tiempoRestante / 60);

@@ -3,7 +3,6 @@ var selectedCells = [];
 var lastSelectedCell = null;
 
 // Función para manejar el clic en una celda
-// Función para manejar el clic en una celda
 function handleCellClick(event) {
     var cell = event.target;
     var idx = Array.from(cell.parentElement.children).indexOf(cell);
@@ -87,8 +86,6 @@ function initializeGame() {
     var board = document.getElementById('board');
     board.addEventListener('click', handleCellClick);
 }
-
-
 
 // Inicializar el juego
 initializeGame();
