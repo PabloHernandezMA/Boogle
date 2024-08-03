@@ -13,8 +13,8 @@ Año 2024.
 Boogle es un juego de palabras donde los jugadores deben encontrar la mayor cantidad de palabras posibles en una cuadrícula de letras antes de que se acabe el tiempo. Esta versión del juego está disponible en dos idiomas: español e inglés.
 
 ## Capturas de Pantalla
-![Captura de Pantalla 1](link_a_tu_imagen1)
-![Captura de Pantalla 2](link_a_tu_imagen2)
+![Captura de Pantalla 1](recursos/imagenes/Captura_de_pantalla_1.png)
+![Captura de Pantalla 2](recursos/imagenes/Captura_de_pantalla_2.png)
 
 ## Cómo Empezar
 Para probar el juego accede al siguiente link:
