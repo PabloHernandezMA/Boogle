@@ -18,7 +18,7 @@ async function validarPalabra(palabra) {
 
     // Agregar la palabra a la lista de palabras encontradas
     palabrasEncontradas.push(palabraLower);
-    //return "Palabra válida y añadida a la lista";
+    return "Palabra válida y añadida a la lista";
 }
 
 function buscarEnPalabrasEncontradas(palabra) {
