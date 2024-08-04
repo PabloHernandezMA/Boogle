@@ -6,17 +6,20 @@ async function validarPalabra(palabra) {
     var palabraLower = palabra.toLowerCase();
 
     if (palabra.length < 3) {
+        penalizarTiempo() 
         return "Recuerda: La palabra debe tener al menos 3 letras";
     }
 
     // Verificar si la palabra ya ha sido encontrada
     if (buscarEnPalabrasEncontradas(palabraLower)) {
+        penalizarTiempo() 
         return "Palabra ya encontrada";
     }
     
     // Verificar si la palabra es válida mediante la API del diccionario
     var esPalabraValida = await buscarEnDiccionario(palabraLower);
     if (!esPalabraValida) {
+        penalizarTiempo() 
         return "Esa palabra no existe";
     }
 
@@ -45,3 +48,12 @@ async function buscarEnDiccionario(palabra) {
         return false;
     }
 }
+
+function penalizarTiempo() {
+    tiempoRestante -= 2;
+    if (tiempoRestante < 0) {
+        tiempoRestante = 0;
+    }
+    actualizarTemporizador();
+}
+
