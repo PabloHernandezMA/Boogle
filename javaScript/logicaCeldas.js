@@ -7,11 +7,30 @@ function handleCellClick(event) {
     var cell = event.target;
     var idx = Array.from(cell.parentElement.children).indexOf(cell);
 
+    // Verificar si la celda ya está seleccionada para deseleccionarla
+    if (selectedCells.includes(cell)) {
+        cell.classList.remove("selected");
+        cell.classList.remove("last-selected");
+        selectedCells = selectedCells.filter(function(selectedCell) {
+            return selectedCell !== cell;
+        });
+        lastSelectedCell = selectedCells.length > 0 ? selectedCells[selectedCells.length - 1] : null;
+
+        if (lastSelectedCell) {
+            lastSelectedCell.classList.add("last-selected");
+        }
+        updateSelectableCells(idx);
+        updateCurrentWord();
+        return;
+    }
+
+    // Verificar si la celda es seleccionable
     if (
         selectedCells.length > 0 &&
-        (!cell.classList.contains("selectable") || selectedCells.includes(cell))
-    )
+        !cell.classList.contains("selectable")
+    ) {
         return;
+    }
 
     cell.classList.add("selected");
     selectedCells.push(cell);
@@ -28,13 +47,12 @@ function handleCellClick(event) {
 
     // Verificar si las celdas seleccionadas son adyacentes
     if (!areCellsAdjacent(selectedCells)) {
-        mostrarMensaje('Las celdas seleccionadas no son adyacentes.');
+        mostrarMensaje('Las celdas seleccionadas no son adyacentes.', true, 3000);
         clearSelectedCells(); // Limpiar selección
     }
 }
 
-
-// Función para actualizar las celdas seleccionables //HAY QUE ARREGLARLO
+// Función para actualizar las celdas seleccionables
 function updateSelectableCells(lastSelectedIdx) {
     var SIZE = 4;
     document.querySelectorAll(".board-cell").forEach(function(cell) {
