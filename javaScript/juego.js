@@ -5,6 +5,10 @@ async function validarPalabra(palabra) {
     // Convertir la palabra a minúsculas para la consistencia
     var palabraLower = palabra.toLowerCase();
 
+    if (palabra.length < 3) {
+        return "Longitud incorrecta: La palabra debe tener al menos 3 letras";
+    }
+
     // Verificar si la palabra ya ha sido encontrada
     if (buscarEnPalabrasEncontradas(palabraLower)) {
         return "Palabra ya encontrada";
