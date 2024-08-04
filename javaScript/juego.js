@@ -6,7 +6,7 @@ async function validarPalabra(palabra) {
     var palabraLower = palabra.toLowerCase();
 
     if (palabra.length < 3) {
-        return "Longitud incorrecta: La palabra debe tener al menos 3 letras";
+        return "Recuerda: La palabra debe tener al menos 3 letras";
     }
 
     // Verificar si la palabra ya ha sido encontrada
@@ -17,12 +17,12 @@ async function validarPalabra(palabra) {
     // Verificar si la palabra es válida mediante la API del diccionario
     var esPalabraValida = await buscarEnDiccionario(palabraLower);
     if (!esPalabraValida) {
-        return "El texto ingresado no se reconoce como palabra válida";
+        return "Esa palabra no existe";
     }
 
     // Agregar la palabra a la lista de palabras encontradas
     palabrasEncontradas.push(palabraLower);
-    return "Palabra válida y añadida a la lista";
+    return "¡Sigue asi!";
 }
 
 function buscarEnPalabrasEncontradas(palabra) {

@@ -146,7 +146,7 @@ function validateWord() {
 
     // Aquí debes llamar a la función de validación de palabra con la API
     validarPalabra(inputWord).then(function(result) {
-        if (result === 'Palabra válida y añadida a la lista') {
+        if (result === '¡Sigue asi!') {
             var wordLength = inputWord.length;
             var wordScore = 0;
 
@@ -207,9 +207,9 @@ function finalizarJuego() {
 }
 
 
-    // Función para limpiar la selección de celdas
-    function clearSelectedCells() {
-        selectedCells.forEach(cell => cell.classList.remove('selected'));
-        selectedCells = [];
-        selectedLetters = [];
-    }
+// Función para limpiar la selección de celdas
+function clearSelectedCells() {
+    selectedCells.forEach(cell => cell.classList.remove('selected'));
+    selectedCells = [];
+    selectedLetters = [];
+}
