@@ -24,6 +24,11 @@ document.getElementById('start-game').addEventListener('click', function() {
 document.getElementById('cancel-game').addEventListener('click', cancelGame);
 
 function startNewGame() {
+
+        // Reiniciar el puntaje total
+    resetScore();
+    clearFoundWords();
+    
     var playerName = document.getElementById('player-name').value;
     var gameTime = parseInt(document.getElementById('game-time').value, 10);
 
@@ -39,6 +44,20 @@ function startNewGame() {
     document.getElementById('game-screen').style.display = 'flex';
     document.getElementById('found-words').style.display = 'flex';
 
+
+
+    // Limpiar palabras de la partida jugada
+    var wordsListElement = document.getElementById('words-list');
+    if (wordsListElement) {
+        wordsListElement.innerHTML = '';
+    }
+
+    // Limpiar las selecciones del tablero
+    var buttons = document.querySelectorAll('.boggle-button');
+    buttons.forEach(button => {
+        button.classList.remove('selected', 'last-selected', 'next-selectable');
+    });
+
     // Generar un nuevo tablero
     generateBoard();
 
@@ -46,19 +65,6 @@ function startNewGame() {
     iniciarTemporizador(gameTime * 60); // Convertir minutos a segundos
 }
 
-// Función para finalizar el juego
-function finalizarJuego() {
-    // Guardar el puntaje y actualizar el ranking al finalizar el juego
-    saveScore();
-
-    // Mostrar mensaje de fin de juego y reiniciar el estado del juego
-    mostrarMensaje('¡El tiempo se ha acabado!');
-    document.getElementById('game-screen').style.display = 'none';
-    document.getElementById('start-screen').style.display = 'block';
-    
-    // Reiniciar puntaje total
-    resetScore();
-}
 
 // Asegúrate de llamar a finalizarJuego en el temporizador
 function iniciarTemporizador(segundos) {
@@ -192,18 +198,23 @@ function validateWord() {
 }
 
 
-// Dentro de la función finalizarJuego
-function finalizarJuego() {
-    // Guardar el puntaje y actualizar el ranking al finalizar el juego
+ function finalizarJuego() {
+    var playerName = document.getElementById('player-name').value;
+
+    // Guardar el puntaje total en el localStorage
     saveScore();
 
-    // Mostrar mensaje de fin de juego y reiniciar el estado del juego
-    mostrarMensaje('¡El tiempo se ha acabado!');
-    document.getElementById('game-screen').style.display = 'none';
+    // Mostrar el puntaje total
+    mostrarMensaje('¡Juego terminado! Puntaje total: ' + puntajeTotal);
+
+    // Reiniciar la interfaz para un nuevo juego
     document.getElementById('start-screen').style.display = 'block';
-    
-    // Reiniciar puntaje total
-    resetScore();
+    document.getElementById('game-screen').style.display = 'none';
+
+    // Detener el temporizador
+    if (timer) {
+        clearInterval(timer);
+    }
 }
 
 
@@ -212,4 +223,12 @@ function clearSelectedCells() {
     selectedCells.forEach(cell => cell.classList.remove('selected'));
     selectedCells = [];
     selectedLetters = [];
+}
+
+// Función para limpiar las palabras encontradas
+function clearFoundWords() {
+    var wordsListElement = document.getElementById('words-list');
+    if (wordsListElement) {
+        wordsListElement.innerHTML = '';
+    }
 }

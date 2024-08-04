@@ -60,7 +60,7 @@ function updateRanking() {
     });
 }
 
-// Función para iniciar un nuevo juego
+/* // Función para iniciar un nuevo juego
 function startNewGame() {
     // Reiniciar el puntaje total
     resetScore();
@@ -77,13 +77,12 @@ function startNewGame() {
         button.classList.remove('selected', 'last-selected', 'next-selectable');
     });
 
-    // Generar un nuevo tablero (suponiendo que tienes una función para esto)
     generateBoard(document.getElementById('board'), palabrasIngles);
 
     // Reiniciar la palabra actual y los botones seleccionados
     palabraActual = '';
     selectedButtons = [];
-}
+} */
 
 // Inicializar el ranking al cargar la página
 window.onload = updateRanking;
