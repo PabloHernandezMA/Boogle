@@ -40,6 +40,8 @@
     border: 1px solid #d8d8d8;
     padding: 15px;
     background-color: #3f3f3f;
+    max-height: 450px; /* Limita la altura máxima del elemento */
+    overflow: auto;
 }
 
 #tabs .tab {
