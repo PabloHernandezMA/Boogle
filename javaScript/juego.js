@@ -55,5 +55,14 @@ function penalizarTiempo() {
         tiempoRestante = 0;
     }
     actualizarTemporizador();
+
+    // Cambiar el color del temporizador a rojo
+    var timerDisplay = document.getElementById('timer-display');
+    timerDisplay.classList.add('penalizado');
+
+    // Quitar el color rojo después de 2 segundos
+    setTimeout(function() {
+        timerDisplay.classList.remove('penalizado');
+    }, 2000);
 }
 

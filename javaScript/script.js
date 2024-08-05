@@ -65,7 +65,8 @@ function startNewGame() {
   generateBoard();
 
   // Iniciar el temporizador
-  iniciarTemporizador(gameTime * 60); // Convertir minutos a segundos
+  iniciarTemporizador(gameTime * 60); 
+  
 }
 
 // Asegúrate de llamar a finalizarJuego en el temporizador
@@ -82,15 +83,22 @@ function iniciarTemporizador(segundos) {
   }, 1000);
 }
 
-function actualizarTemporizador() {
-  var minutos = Math.floor(tiempoRestante / 60);
-  var segundos = tiempoRestante % 60;
-  document.getElementById("timer-display").textContent =
-    "Tiempo restante: " +
-    (minutos < 10 ? "0" + minutos : minutos) +
-    ":" +
-    (segundos < 10 ? "0" + segundos : segundos);
-}
+    function actualizarTemporizador() {
+      var minutos = Math.floor(tiempoRestante / 60);
+      var segundos = tiempoRestante % 60;
+      var timerDisplay = document.getElementById('timer-display');
+      timerDisplay.textContent = 
+          'Tiempo restante: ' + 
+          (minutos < 10 ? '0' + minutos : minutos) + ':' + 
+          (segundos < 10 ? '0' + segundos : segundos);
+  
+      // Cambiar el color del temporizador a rojo si quedan 10 segundos o menos
+      if (tiempoRestante <= 10) {
+          timerDisplay.classList.add('restante');
+      } else {
+          timerDisplay.classList.remove('restante');
+      }
+  }
 
 function cancelGame() {
   document.getElementById("player-name").value = "";
@@ -128,7 +136,7 @@ function generateBoard() {
     for (var col = 0; col < 4; col++) {
       var cell = document.createElement("div");
       cell.textContent = letrasTablero[index];
-      cell.className = "board-cell"; // Agregar una clase para estilizar
+      cell.className = "board-cell"; 
       board.appendChild(cell);
       index++;
     }
@@ -156,14 +164,14 @@ function validateWord() {
     return;
   }
 
-  // Aquí debes llamar a la función de validación de palabra con la API
+  
   validarPalabra(inputWord)
     .then(function (result) {
       if (result === "¡Sigue asi!") {
         var wordLength = inputWord.length;
         var wordScore = 0;
 
-        // Asignar puntaje según la longitud de la palabra
+        
         if (wordLength === 3 || wordLength === 4) {
           wordScore = 1;
         } else if (wordLength === 5) {

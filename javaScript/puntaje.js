@@ -60,29 +60,5 @@ function updateRanking() {
     });
 }
 
-/* // Función para iniciar un nuevo juego
-function startNewGame() {
-    // Reiniciar el puntaje total
-    resetScore();
-
-    // Limpiar palabras de la partida jugada
-    var wordsListElement = document.getElementById('words-list');
-    if (wordsListElement) {
-        wordsListElement.innerHTML = '';
-    }
-
-    // Limpiar las selecciones del tablero
-    var buttons = document.querySelectorAll('.boggle-button');
-    buttons.forEach(button => {
-        button.classList.remove('selected', 'last-selected', 'next-selectable');
-    });
-
-    generateBoard(document.getElementById('board'), palabrasIngles);
-
-    // Reiniciar la palabra actual y los botones seleccionados
-    palabraActual = '';
-    selectedButtons = [];
-} */
-
 // Inicializar el ranking al cargar la página
 window.onload = updateRanking;

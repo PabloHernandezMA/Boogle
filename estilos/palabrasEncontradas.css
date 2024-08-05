@@ -69,3 +69,23 @@
         font-weight: bold;
     }
 }
+
+.penalizado {
+    color: red;
+    font-weight: bold;
+}
+
+.restante{
+    color: red;
+    font-weight: bold;
+    animation: palpitar 1s infinite;
+}
+
+@keyframes palpitar {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
