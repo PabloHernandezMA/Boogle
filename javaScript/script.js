@@ -39,7 +39,7 @@ function startNewGame() {
 
     document.getElementById('player-name-display').value = playerName;
     document.getElementById('game-time-display').value = gameTime + ' minutos';
-
+    document.getElementById('input-word').value = '';
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('game-screen').style.display = 'flex';
     document.getElementById('found-words').style.display = 'flex';
@@ -231,4 +231,5 @@ function clearFoundWords() {
     if (wordsListElement) {
         wordsListElement.innerHTML = '';
     }
+    
 }
