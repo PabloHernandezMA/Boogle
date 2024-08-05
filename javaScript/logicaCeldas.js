@@ -13,13 +13,12 @@ function handleCellClick(event) {
 
   var idx = Array.from(cell.parentElement.children).indexOf(cell);
 
-  // Verificar si la celda ya está seleccionada para deseleccionarla
-  if (selectedCells.includes(cell)) {
+  // Verificar si la celda ya está seleccionada y si es la última seleccionada para deseleccionarla
+  if (cell === lastSelectedCell) {
     cell.classList.remove("selected");
     cell.classList.remove("last-selected");
-    selectedCells = selectedCells.filter(function (selectedCell) {
-      return selectedCell !== cell;
-    });
+    selectedCells.pop(); // Remover la última celda seleccionada
+
     lastSelectedCell =
       selectedCells.length > 0 ? selectedCells[selectedCells.length - 1] : null;
 
