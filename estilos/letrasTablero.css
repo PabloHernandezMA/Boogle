@@ -1,4 +1,4 @@
-.board-cell {
+.board-celda {
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -8,14 +8,18 @@
   cursor: pointer;
 }
 
-.board-cell.selected {
-  background-color: yellow; /* Color para las celdas seleccionadas */
+.board-celda.selected {
+  background-color: #f0f8ff; /* Cambia este color según tus necesidades */
+  border: 2px solid #0000ff; /* Cambia este color según tus necesidades */
 }
 
-.board-cell.last-selected {
-  border: 2px solid red; /* Borde para la última celda seleccionada */
+.board-celda.last-selected {
+  background-color: #ffa07a; /* Cambia este color según tus necesidades */
+  border: 2px solid #ff4500; /* Cambia este color según tus necesidades */
 }
 
-.board-cell.continuous {
-  background-color: violet; /* Color para las celdas adyacentes */
+.board-celda.selectable {
+  background-color: #98fb98; /* Cambia este color según tus necesidades */
+  border: 2px solid #32cd32; /* Cambia este color según tus necesidades */
 }
+

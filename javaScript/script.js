@@ -1,7 +1,6 @@
 var palabrasIngles = [];
 var timer;
-var tiempoRestante; // Tiempo restante en segundos
-
+var tiempoRestante; 
 // Cargar el archivo JSON
 fetch("./recursos/diccionarios/english-dictionary/palabrasIngles.json")
   .then(function (response) {
@@ -14,62 +13,38 @@ fetch("./recursos/diccionarios/english-dictionary/palabrasIngles.json")
     console.error("Error al cargar el archivo JSON:", error);
   });
 
-// Eventos
-document
-  .getElementById("validate-word")
-  .addEventListener("click", validateWord);
-document.getElementById("start-game").addEventListener("click", function () {
-  startNewGame();
-  updateRanking();
-});
-
-document.getElementById("cancel-game").addEventListener("click", cancelGame);
-
-function startNewGame() {
+function iniciarNuevoJuego() {
   var playerName = document.getElementById("player-name").value;
   if (playerName.length < 3) {
     mostrarMensaje("El nombre debe ser de minimo 3 letras");
     return;
   }
-  // Reiniciar el puntaje total
-  resetScore();
-  clearFoundWords();
-
+  reiniciarPuntaje();
+  limpiarPalabrasEncontradas();
   var gameTime = parseInt(document.getElementById("game-time").value, 10);
-
   if (!playerName) {
     mostrarMensaje("Por favor, ingresa tu nombre.");
     return;
   }
-
   document.getElementById("player-name-display").value = playerName;
   document.getElementById("game-time-display").value = gameTime + " minutos";
   document.getElementById("input-word").value = "";
   document.getElementById("start-screen").style.display = "none";
   document.getElementById("game-screen").style.display = "flex";
   document.getElementById("found-words").style.display = "flex";
-
-  // Limpiar palabras de la partida jugada
   var wordsListElement = document.getElementById("words-list");
   if (wordsListElement) {
     wordsListElement.innerHTML = "";
   }
-
-  // Limpiar las selecciones del tablero
-  var buttons = document.querySelectorAll(".boggle-button");
-  buttons.forEach((button) => {
+  var botones = document.querySelectorAll(".boggle-button");
+  botones.forEach((button) => {
     button.classList.remove("selected", "last-selected", "next-selectable");
   });
 
-  // Generar un nuevo tablero
-  generateBoard();
-
-  // Iniciar el temporizador
+  generarTablero();
   iniciarTemporizador(gameTime * 60); 
-  
 }
 
-// Asegúrate de llamar a finalizarJuego en el temporizador
 function iniciarTemporizador(segundos) {
   tiempoRestante = segundos;
   actualizarTemporizador();
@@ -83,61 +58,51 @@ function iniciarTemporizador(segundos) {
   }, 1000);
 }
 
-    function actualizarTemporizador() {
-      var minutos = Math.floor(tiempoRestante / 60);
-      var segundos = tiempoRestante % 60;
-      var timerDisplay = document.getElementById('timer-display');
-      timerDisplay.textContent = 
-          'Tiempo restante: ' + 
-          (minutos < 10 ? '0' + minutos : minutos) + ':' + 
-          (segundos < 10 ? '0' + segundos : segundos);
-  
-      // Cambiar el color del temporizador a rojo si quedan 10 segundos o menos
-      if (tiempoRestante <= 10) {
-          timerDisplay.classList.add('restante');
-      } else {
-          timerDisplay.classList.remove('restante');
-      }
-  }
+function actualizarTemporizador() {
+  var minutos = Math.floor(tiempoRestante / 60);
+  var segundos = tiempoRestante % 60;
+  var timerDisplay = document.getElementById('timer-display');
+  timerDisplay.textContent = 
+    'Tiempo restante: ' + 
+     (minutos < 10 ? '0' + minutos : minutos) + ':' + 
+     (segundos < 10 ? '0' + segundos : segundos);   
+  if (tiempoRestante <= 10) {
+      timerDisplay.classList.add('restante');
+    } else {
+      timerDisplay.classList.remove('restante');
+    }
+}
 
-function cancelGame() {
+function cancelarJuego() {
   document.getElementById("player-name").value = "";
   document.getElementById("input-word").value = "";
   document.getElementById("words-list").innerHTML = "";
-
   document.getElementById("start-screen").style.display = "block";
   document.getElementById("game-screen").style.display = "none";
-
-  // Detener el temporizador
   if (timer) {
     clearInterval(timer);
   }
 }
 
-function generateBoard() {
+function generarTablero() {
   if (palabrasIngles.length === 0) {
     console.error("Las palabras no están cargadas.");
     return;
   }
-
   var board = document.getElementById("board");
   board.innerHTML = "";
-
-  // Crear un tablero 4x4
   var tablero = [];
   for (var i = 0; i < 4; i++) {
     tablero.push([]);
   }
-
-  // Seleccionar letras aleatorias para el tablero
   var letrasTablero = seleccionarLetrasAleatorias(palabrasIngles, 16);
   var index = 0;
   for (var fila = 0; fila < 4; fila++) {
     for (var col = 0; col < 4; col++) {
-      var cell = document.createElement("div");
-      cell.textContent = letrasTablero[index];
-      cell.className = "board-cell"; 
-      board.appendChild(cell);
+      var celda = document.createElement("div");
+      celda.textContent = letrasTablero[index];
+      celda.className = "board-celda"; 
+      board.appendChild(celda);
       index++;
     }
   }
@@ -154,7 +119,7 @@ function seleccionarLetrasAleatorias(lista, num) {
   return letras;
 }
 
-function validateWord() {
+function validarPalabraIngresada() {
   var inputWord = document
     .getElementById("input-word")
     .value.trim()
@@ -163,15 +128,11 @@ function validateWord() {
     mostrarMensaje("Por favor, ingresa una palabra.");
     return;
   }
-
-  
   validarPalabra(inputWord)
     .then(function (result) {
       if (result === "¡Sigue asi!") {
         var wordLength = inputWord.length;
         var wordScore = 0;
-
-        
         if (wordLength === 3 || wordLength === 4) {
           wordScore = 1;
         } else if (wordLength === 5) {
@@ -183,29 +144,21 @@ function validateWord() {
         } else if (wordLength >= 8) {
           wordScore = 11;
         }
-
         // Llamar a la función de puntaje en puntaje.js
-        addScore(wordScore);
-
+        sumarPuntos(wordScore);
         var wordsList = document.getElementById("words-list");
         var wordItem = document.createElement("tr");
-        var wordCell = document.createElement("td");
-        var scoreCell = document.createElement("td");
-
-        wordCell.textContent = inputWord;
-        scoreCell.textContent = wordScore;
-
-        wordItem.appendChild(wordCell);
-        wordItem.appendChild(scoreCell);
+        var wordcelda = document.createElement("td");
+        var scorecelda = document.createElement("td");
+        wordcelda.textContent = inputWord;
+        scorecelda.textContent = wordScore;
+        wordItem.appendChild(wordcelda);
+        wordItem.appendChild(scorecelda);
         wordsList.appendChild(wordItem);
       }
       mostrarMensaje(result);
-
-      // Limpiar el campo de texto después de la validación
       document.getElementById("input-word").value = "";
-
-      // Limpiar la selección de celdas
-      clearSelectedCells();
+      limpiarCeldaSeleccionada();
     })
     .catch(function (error) {
       console.error("Error al validar la palabra:", error);
@@ -215,36 +168,39 @@ function validateWord() {
 
 function finalizarJuego() {
   var playerName = document.getElementById("player-name").value;
-
   // Guardar el puntaje total en el localStorage
-  saveScore();
-
-  // Mostrar el puntaje total
+  guardarPuntaje();
   mostrarMensaje("¡Juego terminado! Puntaje total: " + puntajeTotal);
-
-  // Reiniciar la interfaz para un nuevo juego
   document.getElementById("start-screen").style.display = "block";
   document.getElementById("game-screen").style.display = "none";
-
-  // Detener el temporizador
   if (timer) {
     clearInterval(timer);
   }
 }
 
 // Función para limpiar la selección de celdas
-function clearSelectedCells() {
-  selectedCells.forEach((cell) => cell.classList.remove("selected"));
-  selectedCells = [];
+function limpiarCeldaSeleccionada() {
+  celdaSeleccionada.forEach((celda) => celda.classList.remove("selected"));
+  celdaSeleccionada = [];
   selectedLetters = [];
 }
 
 // Función para limpiar las palabras encontradas
-function clearFoundWords() {
+function limpiarPalabrasEncontradas() {
   var wordsListElement = document.getElementById("words-list");
   if (wordsListElement) {
     wordsListElement.innerHTML = "";
   }
 }
 
-window.onload(updateRanking());
+// Eventos
+document
+  .getElementById("validate-word")
+  .addEventListener("click", validarPalabraIngresada);
+document.getElementById("start-game").addEventListener("click", function () {
+  iniciarNuevoJuego();
+  actualizarRanking();
+});
+document.getElementById("cancel-game").addEventListener("click", cancelarJuego);
+
+window.onload(actualizarRanking());

@@ -1,112 +1,121 @@
-// Variables globales para gestionar el estado de la selección
-var selectedCells = [];
-var lastSelectedCell = null;
+var celdaSeleccionada = [];
+var ultimaCeldaSeleccionada = null;
+var tamañoTablero = 4;
 
-// Función para manejar el clic en una celda
-function handleCellClick(event) {
-  var cell = event.target;
-  
-  // Asegurarse de que solo se ejecuta si se hace clic en una celda
-  if (!cell.classList.contains("board-cell")) {
-    return;
-  }
+document.addEventListener("DOMContentLoaded", iniciarJuego);
 
-  var idx = Array.from(cell.parentElement.children).indexOf(cell);
-
-  // Verificar si la celda ya está seleccionada y si es la última seleccionada para deseleccionarla
-  if (cell === lastSelectedCell) {
-    cell.classList.remove("selected");
-    cell.classList.remove("last-selected");
-    selectedCells.pop(); // Remover la última celda seleccionada
-
-    lastSelectedCell =
-      selectedCells.length > 0 ? selectedCells[selectedCells.length - 1] : null;
-
-    if (lastSelectedCell) {
-      lastSelectedCell.classList.add("last-selected");
-    }
-    updateSelectableCells(idx);
-    updateCurrentWord();
-    return;
-  }
-
-  // Verificar si la celda es seleccionable
-  if (selectedCells.length > 0 && !cell.classList.contains("selectable")) {
-    return;
-  }
-
-  cell.classList.add("selected");
-  selectedCells.push(cell);
-
-  if (lastSelectedCell) {
-    lastSelectedCell.classList.remove("last-selected");
-  }
-
-  cell.classList.add("last-selected");
-  lastSelectedCell = cell;
-
-  updateSelectableCells(idx);
-  updateCurrentWord();
-
-  // Verificar si las celdas seleccionadas son adyacentes
-  if (!areCellsAdjacent(selectedCells)) {
-    mostrarMensaje("Las celdas seleccionadas no son adyacentes.", true, 3000);
-    clearSelectedCells(); // Limpiar selección
-  }
-}
-
-// Función para actualizar las celdas seleccionables
-function updateSelectableCells(lastSelectedIdx) {
-  var SIZE = 4;
-  document.querySelectorAll(".board-cell").forEach(function (cell) {
-    cell.classList.remove("selectable");
+function actualizarCeldasSeleccionables(ultimaCeldaIdx) {
+  document.querySelectorAll(".board-celda").forEach(function (celda) {
+    celda.classList.remove("selectable");
   });
 
-  if (!lastSelectedCell) {
-    document.querySelectorAll(".board-cell").forEach(function (cell) {
-      cell.classList.add("selectable");
+  if (!ultimaCeldaSeleccionada) {
+    document.querySelectorAll(".board-celda").forEach(function (celda) {
+      celda.classList.add("selectable");
     });
     return;
   }
 
-  var row = Math.floor(lastSelectedIdx / SIZE);
-  var col = lastSelectedIdx % SIZE;
-
-  var positions = [
-    { row: row - 1, col: col },
-    { row: row + 1, col: col },
-    { row: row, col: col - 1 },
-    { row: row, col: col + 1 },
-    { row: row - 1, col: col - 1 },
-    { row: row - 1, col: col + 1 },
-    { row: row + 1, col: col - 1 },
-    { row: row + 1, col: col + 1 },
+  var fila = Math.floor(ultimaCeldaIdx / tamañoTablero);
+  var col = ultimaCeldaIdx % tamañoTablero;
+  var posicionesAdyacentes = [
+    { fila: fila - 1, col: col },
+    { fila: fila + 1, col: col },
+    { fila: fila, col: col - 1 },
+    { fila: fila, col: col + 1 },
+    { fila: fila - 1, col: col - 1 },
+    { fila: fila - 1, col: col + 1 },
+    { fila: fila + 1, col: col - 1 },
+    { fila: fila + 1, col: col + 1 },
   ];
 
-  positions.forEach(function (pos) {
-    if (pos.row >= 0 && pos.row < SIZE && pos.col >= 0 && pos.col < SIZE) {
-      var adjacentIdx = pos.row * SIZE + pos.col;
-      var adjacentCell = document.querySelectorAll(".board-cell")[adjacentIdx];
-      if (!selectedCells.includes(adjacentCell)) {
-        adjacentCell.classList.add("selectable");
+  posicionesAdyacentes.forEach(function (pos) {
+    if (pos.fila >= 0 && pos.fila < tamañoTablero && pos.col >= 0 && pos.col < tamañoTablero) {
+      var adjacentIdx = pos.fila * tamañoTablero + pos.col;
+      var celdaAdyacente = document.querySelectorAll(".board-celda")[adjacentIdx];
+      if (!celdaSeleccionada.includes(celdaAdyacente)) {
+        celdaAdyacente.classList.add("selectable");
       }
     }
   });
 }
 
-// Función para actualizar la palabra actual en el campo de texto
-function updateCurrentWord() {
-  var selectedLetters = selectedCells.map(function (cell) {
-    return cell.textContent;
+function actualizarPalabraActual() {
+  var letrasSeleccionadas = celdaSeleccionada.map(function (celda) {
+    return celda.textContent;
   });
-  document.getElementById("input-word").value = selectedLetters.join("");
+  document.getElementById("input-word").value = letrasSeleccionadas.join("");
 }
 
-// Función para inicializar el juego
-function initializeGame() {
+function iniciarJuego() {
   var board = document.getElementById("board");
-  board.addEventListener("click", handleCellClick);
+  board.addEventListener("click", manejarClickCeldas);
 }
 
-// Inicializar el juego
-initializeGame();
+function manejarClickCeldas(event) {
+  var celda = event.target;
+  if (!celda.classList.contains("board-celda")) {
+    return;
+  }
+  var idx = Array.from(celda.parentElement.children).indexOf(celda);
+
+  if (celda === ultimaCeldaSeleccionada) {
+    celda.classList.remove("selected", "last-selected");
+    celdaSeleccionada.pop();
+    ultimaCeldaSeleccionada = celdaSeleccionada.length > 0 ? celdaSeleccionada[celdaSeleccionada.length - 1] : null;
+    if (ultimaCeldaSeleccionada) {
+      ultimaCeldaSeleccionada.classList.add("last-selected");
+    }
+    actualizarCeldasSeleccionables(idx);
+    actualizarPalabraActual();
+    return;
+  }
+
+  if (celdaSeleccionada.length > 0 && !celda.classList.contains("selectable")) {
+    return;
+  }
+
+  celda.classList.add("selected", "last-selected");
+  celdaSeleccionada.push(celda);
+  if (ultimaCeldaSeleccionada) {
+    ultimaCeldaSeleccionada.classList.remove("last-selected");
+  }
+  ultimaCeldaSeleccionada = celda;
+  actualizarCeldasSeleccionables(idx);
+  actualizarPalabraActual();
+
+  if (!sonCeldasAdyacentes(celdaSeleccionada)) {
+    mostrarMensaje("Las celdas seleccionadas no son adyacentes.", true, 3000);
+    limpiarceldaSeleccionada();
+  }
+}
+
+function sonCeldasAdyacentes(celdas) {
+  for (var i = 0; i < celdas.length - 1; i++) {
+    var idx1 = Array.from(celdas[i].parentElement.children).indexOf(celdas[i]);
+    var idx2 = Array.from(celdas[i + 1].parentElement.children).indexOf(celdas[i + 1]);
+    if (!sonAdyacentes(idx1, idx2)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function sonAdyacentes(idx1, idx2) {
+  var fila1 = Math.floor(idx1 / tamañoTablero);
+  var col1 = idx1 % tamañoTablero;
+  var fila2 = Math.floor(idx2 / tamañoTablero);
+  var col2 = idx2 % tamañoTablero;
+  var filaDiff = Math.abs(fila1 - fila2);
+  var colDiff = Math.abs(col1 - col2);
+  return (filaDiff <= 1 && colDiff <= 1);
+}
+
+function limpiarceldaSeleccionada() {
+  celdaSeleccionada.forEach(function (celda) {
+    celda.classList.remove("selected", "last-selected");
+  });
+  celdaSeleccionada = [];
+  ultimaCeldaSeleccionada = null;
+  actualizarCeldasSeleccionables();
+}

@@ -1,8 +1,6 @@
-// Variables para manejar el puntaje
-var puntajeTotal = 0; // Puntaje total del jugador
+var puntajeTotal = 0; 
 
-// Función para reiniciar el puntaje al finalizar el juego
-function resetScore() {
+function reiniciarPuntaje() {
     puntajeTotal = 0;
     var puntajeTotalElement = document.getElementById('puntaje-total').querySelector('p');
     if (puntajeTotalElement) {
@@ -10,12 +8,8 @@ function resetScore() {
     }
 }
 
-// Función para agregar puntaje
-function addScore(wordScore) {
-    // Actualizar el puntaje total
+function sumarPuntos(wordScore) {
     puntajeTotal += wordScore;
-
-    // Asegurarse de que el puntaje total se actualiza correctamente en el DOM
     var puntajeTotalElement = document.getElementById('puntaje-total').querySelector('p');
     if (puntajeTotalElement) {
         puntajeTotalElement.textContent = 'Puntaje total: ' + puntajeTotal;
@@ -25,40 +19,40 @@ function addScore(wordScore) {
 }
 
 // Función para guardar el puntaje en el localStorage
-function saveScore() {
+function guardarPuntaje() {
     var playerName = document.getElementById('player-name-display').value;
-    var fecha = new Date().toISOString().split('T')[0]; // Fecha en formato YYYY-MM-DD
-    var scores = JSON.parse(localStorage.getItem('scores')) || [];
+    var fecha = new Date().toISOString().split('T')[0];
+    var puntajes = JSON.parse(localStorage.getItem('puntajes')) || [];
 
-    scores.push({ name: playerName, date: fecha, score: puntajeTotal });
-    scores.sort((a, b) => b.score - a.score); // Ordenar por puntaje de mayor a menor
+    puntajes.push({ name: playerName, date: fecha, score: puntajeTotal });
+    puntajes.sort((a, b) => b.score - a.score);
 
-    localStorage.setItem('scores', JSON.stringify(scores));
-    updateRanking();
-}
-
-// Función para actualizar el ranking en la interfaz
-function updateRanking() {
-    var scores = JSON.parse(localStorage.getItem('scores')) || [];
-    var tbody = document.querySelector('#historial-tab tbody');
-    tbody.innerHTML = '';
-
-    scores.forEach(function(score) {
-        var row = document.createElement('tr');
-        var nameCell = document.createElement('td');
-        var dateCell = document.createElement('td');
-        var scoreCell = document.createElement('td');
-
-        nameCell.textContent = score.name;
-        dateCell.textContent = score.date;
-        scoreCell.textContent = score.score;
-
-        row.appendChild(nameCell);
-        row.appendChild(dateCell);
-        row.appendChild(scoreCell);
-        tbody.appendChild(row);
-    });
+    localStorage.setItem('puntajes', JSON.stringify(puntajes));
+    actualizarRanking();
 }
 
 // Inicializar el ranking al cargar la página
-window.onload = updateRanking;
+window.onload = actualizarRanking;
+
+// Función para actualizar el ranking en la interfaz
+function actualizarRanking() {
+    var puntajes = JSON.parse(localStorage.getItem('puntajes')) || [];
+    var tbody = document.querySelector('#historial-tab tbody');
+    tbody.innerHTML = '';
+
+    puntajes.forEach(function(score) {
+        var fila = document.createElement('tr');
+        var namecelda = document.createElement('td');
+        var datecelda = document.createElement('td');
+        var scorecelda = document.createElement('td');
+
+        namecelda.textContent = score.name;
+        datecelda.textContent = score.date;
+        scorecelda.textContent = score.score;
+
+        fila.appendChild(namecelda);
+        fila.appendChild(datecelda);
+        fila.appendChild(scorecelda);
+        tbody.appendChild(fila);
+    });
+}
