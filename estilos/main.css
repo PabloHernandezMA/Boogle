@@ -86,9 +86,8 @@ main {
   color: white;
 }
 
-/* Estilos para el modal */
 .modal {
-  display: none; /* Oculto por defecto */
+  display: none; 
   position: fixed;
   z-index: 1;
   left: 0;
@@ -96,10 +95,9 @@ main {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente */
+  background-color: rgba(0,0,0,0.4); 
 }
 
-/* Contenido del modal */
 .modal-content {
   background-color: #650e0e;
   margin: 15% auto;
@@ -109,9 +107,8 @@ main {
 }
 
 .close-button {
-  display: none; /* Esto oculta el botón */
+  display: none; 
 }
-
 
 @media (max-width: 900px) {
   main {

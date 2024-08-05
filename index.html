@@ -43,13 +43,11 @@
                         </tbody>
                     </table>
                 </div>
-        
                 <div id="reglas-tab" class="tab">
                     <ul> <li>El juego comienza al ordenarse las letras en la cuadrícula, momento que coincide con el inicio del temporizador (que puede setearse de 1, 2 o 3 minutos).</li> <li>Para buscar las palabras se deben tener en cuenta los siguientes criterios: <ul id="lista"> <li>Las palabras deben tener al menos tres letras.</li> <li>Cada letra después de la primera debe ser vecina horizontal, vertical o diagonal de la anterior.</li> <li>Ninguna casilla de letras individual se puede utilizar más de una vez en una palabra.</li> <li>Se permiten múltiples formas de la misma palabra, como formas singulares y plurales y otras derivaciones. No se aceptan nombres propios, artículos ni pronombres.</li> <li>Se permiten palabras dentro de palabras, como "casa" y "casamiento".</li> </ul> </li> <li>El jugador, debe ir guardando cada palabra que encuentra de tal manera que se vaya generando una puntuación, hasta que finalice el tiempo de juego.</li> <li>Las palabras ingresadas deben ser palabras reales (deben existir en el diccionario desde el cual se está consumiendo la data), de lo contrario, habrá una penalización (se restará tiempo de la partida)</li> </ul>
                 </div>
             </div>
         </div>
-        
         <div id="start-screen">
             <label for="player-name">Nombre del jugador:</label>
             <input type="text" id="player-name">
@@ -70,12 +68,10 @@
                 </div>
                 <label for="game-time-display">Tiempo de juego:</label>
                 <input type="text" id="game-time-display" readonly>
-                <div id="timer-display">Tiempo restante: 00:00</div> <!-- Agregado para mostrar el temporizador -->
-
+                <div id="timer-display">Tiempo restante: 00:00</div>
                 <div>
                     <button id="cancel-game">Cancelar partida</button>
                 </div>
-                
                 <div id="board">
                     <!-- El tablero de Boggle se generará aquí -->
                 </div>
@@ -87,7 +83,6 @@
                 
             </div>
         </div>
-        
         <div id="found-words" style="display: none;">
             <div>
                 <h2>Palabras encontradas</h2>
@@ -104,28 +99,22 @@
                 <div id="puntaje-total"><p>Puntaje total: 0</p></div>
             </div>
         </div>
-        <!-- Modal para mensajes -->
         <div id="message-modal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
                 <p id="modal-message"></p>
             </div>
         </div>
-
-
     </main>
-
     <footer>
         <a href="./subPaginas/contacto.html">Contacto - Reportar problema</a>
         <a href="https://github.com/PabloHernandezMA/boogle" target="_blank">Repositorio del proyecto</a>
     </footer>
-
     <script src="./javaScript/puntaje.js"></script>
     <script src="./javaScript/logicaCeldas.js"></script>
     <script src="./javaScript/utils.js"></script>
     <script src="./javaScript/script.js"></script>
     <script src="./javaScript/juego.js"></script>
     <script src="./javaScript/tabs.js"></script>
-    
 </body>
 </html>
