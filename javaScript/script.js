@@ -12,7 +12,6 @@ fetch("./recursos/diccionarios/english-dictionary/palabrasIngles.json")
     palabrasIngles = data;
   })
   .catch(function (error) {
-    console.error("Error al cargar el archivo JSON:", error);
   });
 
 function seleccionarLetrasAleatorias(lista, num) {
@@ -43,7 +42,6 @@ function limpiarPalabrasEncontradas() {
 
 function generarTablero() {
   if (palabrasIngles.length === 0) {
-    console.error("Las palabras no están cargadas.");
     return;
   }
   var board = document.getElementById("board");
@@ -190,7 +188,6 @@ function validarPalabraIngresada() {
       limpiarCeldaSeleccionada();
     })
     .catch(function (error) {
-      console.error("Error al validar la palabra:", error);
       mostrarMensaje("Error al validar la palabra.");
     });
 }

@@ -16,7 +16,7 @@ function sumarPuntos(wordScore) {
     if (puntajeTotalElement) {
         puntajeTotalElement.textContent = 'Puntaje total: ' + puntajeTotal;
     } else {
-        console.error('Elemento para puntaje total no encontrado.');
+        
     }
 }
 
