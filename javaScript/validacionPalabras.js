@@ -56,3 +56,5 @@ async function validarPalabra(palabra) {
     return "¡Sigue asi!";
 }
 
+
+
