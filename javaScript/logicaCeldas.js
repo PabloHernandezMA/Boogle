@@ -1,3 +1,5 @@
+"use strict";
+
 var celdaSeleccionada = [];
 var ultimaCeldaSeleccionada = null;
 var tamañoTablero = 4;

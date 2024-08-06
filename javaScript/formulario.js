@@ -1,3 +1,5 @@
+"use strict";
+
 // Función para validar el nombre
 function validarNombre(nombre) {
     var errorNombre = document.getElementById('errorNombre');

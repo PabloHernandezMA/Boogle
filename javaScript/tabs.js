@@ -1,3 +1,5 @@
+"use strict";
+
 window.onload = function() {
     var tabLinks = document.querySelectorAll('.tab-links li');
     var tabContentContainer = document.querySelector('.tab-content');

@@ -1,3 +1,5 @@
+"use strict";
+
 var puntajeTotal = 0; 
 
 function reiniciarPuntaje() {

@@ -1,3 +1,5 @@
+"use strict";
+
 function mostrarMensaje(mensaje) {
     var modal = document.getElementById('message-modal');
     var modalMessage = document.getElementById('modal-message');

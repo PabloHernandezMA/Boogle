@@ -1,3 +1,5 @@
+"use strict";
+
 var palabrasIngles = [];
 var timer;
 var tiempoRestante; 
@@ -28,7 +30,7 @@ function seleccionarLetrasAleatorias(lista, num) {
 function limpiarCeldaSeleccionada() {
   celdaSeleccionada.forEach((celda) => celda.classList.remove("selected"));
   celdaSeleccionada = [];
-  selectedLetters = [];
+  var selectedLetters = [];
 }
 
 // Función para limpiar las palabras encontradas
