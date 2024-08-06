@@ -34,19 +34,23 @@ function penalizarTiempo() {
 async function validarPalabra(palabra) {
     var palabraLower = palabra.toLowerCase();
     if (palabra.length < 3) {
-        penalizarTiempo() 
+        penalizarTiempo()
+        limpiarceldaSeleccionada()
         return "Recuerda: La palabra debe tener al menos 3 letras";
     }
     if (buscarEnPalabrasEncontradas(palabraLower)) {
         penalizarTiempo() 
+        limpiarceldaSeleccionada()
         return "Palabra ya encontrada";
     }
     var esPalabraValida = await buscarEnDiccionario(palabraLower);
     if (!esPalabraValida) {
-        penalizarTiempo() 
+        penalizarTiempo()
+        limpiarceldaSeleccionada()
         return "Esa palabra no existe";
     }
     palabrasEncontradas.push(palabraLower);
+    limpiarceldaSeleccionada()
     return "¡Sigue asi!";
 }
 
