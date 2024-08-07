@@ -33,7 +33,8 @@ main {
 
 #start-screen
 {
-  display: inline-block;
+  display: flex;
+  flex-flow: column;
   padding: 20px;
   background-color: rgb(34, 34, 34);
   border-radius: 10px;
@@ -42,10 +43,10 @@ main {
 
  #game-screen {
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;
   display: none;
+  flex-flow: row wrap;
   padding: 20px;
-  flex-flow: column;
   justify-content: center;
   background-color: #222222;
   border-radius: 10px;
@@ -53,7 +54,7 @@ main {
 }
 
 #start-screen input, #start-screen select, #game-screen input {
-  margin: 10px 0;
+  margin: 5px 0;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -66,7 +67,7 @@ main {
   color: white;
   border: none;
   padding: 10px 20px;
-  margin-top: 10px;
+  margin-top: 5px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -75,18 +76,14 @@ main {
   background-color: #1C86EE;
 }
 
-#game-screen {
-  display: none;
-  flex-flow: row nowrap;
-}
 
 #game-screen label, #game-screen input, #game-screen button {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 #cancel-game {
   background-color: #FF4500;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 #cancel-game:hover {
@@ -96,13 +93,12 @@ main {
 #board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin: 20px 0;
+  gap: 5px;
 }
 
 #board div {
   background-color: #477947;
-  padding: 20px;
+  padding: 10px;
   font-size: 1.5em;
   border-radius: 5px;
   display: flex;

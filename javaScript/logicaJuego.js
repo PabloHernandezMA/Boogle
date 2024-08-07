@@ -83,7 +83,7 @@ function finalizarJuego() {
   // Guardar el puntaje total en el localStorage
   guardarPuntaje();
   mostrarMensaje("¡Juego terminado! Puntaje total: " + puntajeTotal);
-  document.getElementById("start-screen").style.display = "block";
+  document.getElementById("start-screen").style.display = "flex";
   document.getElementById("game-screen").style.display = "none";
   if (timer) {
     clearInterval(timer);
@@ -139,7 +139,7 @@ function cancelarJuego() {
   document.getElementById("player-name").value = "";
   document.getElementById("input-word").value = "";
   document.getElementById("words-list").innerHTML = "";
-  document.getElementById("start-screen").style.display = "block";
+  document.getElementById("start-screen").style.display = "flex";
   document.getElementById("game-screen").style.display = "none";
   if (timer) {
     clearInterval(timer);
