@@ -1,3 +1,14 @@
+.penalizado {
+    color: red;
+    font-weight: bold;
+}
+
+.restante{
+    color: red;
+    font-weight: bold;
+    animation: palpitar 1s infinite;
+}
+
 #found-words {
   width: 100%;
   max-width: 450px;
@@ -68,17 +79,6 @@
         text-align: left;
         font-weight: bold;
     }
-}
-
-.penalizado {
-    color: red;
-    font-weight: bold;
-}
-
-.restante{
-    color: red;
-    font-weight: bold;
-    animation: palpitar 1s infinite;
 }
 
 @keyframes palpitar {
