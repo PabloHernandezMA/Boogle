@@ -33,9 +33,6 @@ function guardarPuntaje() {
     actualizarRanking();
 }
 
-// Inicializar el ranking al cargar la página
-window.onload = actualizarRanking;
-
 // Función para actualizar el ranking en la interfaz
 function actualizarRanking() {
     var puntajes = JSON.parse(localStorage.getItem('puntajes')) || [];
@@ -58,3 +55,6 @@ function actualizarRanking() {
         tbody.appendChild(fila);
     });
 }
+
+// Inicializar el ranking al cargar la página
+window.onload = actualizarRanking;

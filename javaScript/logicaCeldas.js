@@ -67,6 +67,7 @@ function manejarClickCeldas(event) {
     ultimaCeldaSeleccionada = celdaSeleccionada.length > 0 ? celdaSeleccionada[celdaSeleccionada.length - 1] : null;
     if (ultimaCeldaSeleccionada) {
       ultimaCeldaSeleccionada.classList.add("last-selected");
+      idx = Array.from(ultimaCeldaSeleccionada.parentElement.children).indexOf(ultimaCeldaSeleccionada);
     }
     actualizarCeldasSeleccionables(idx);
     actualizarPalabraActual();
