@@ -1,65 +1,112 @@
 "use strict";
 
-// Función para validar el nombre
-function validarNombre(nombre) {
-    var errorNombre = document.getElementById('errorNombre');
-    errorNombre.textContent = '';
+// Variables para almacenar los IDs de los elementos
+var idFormulario = 'formularioContacto';
+var idNombre = 'nombre';
+var idCorreo = 'correo';
+var idMensaje = 'mensaje';
+var idErrorNombre = 'errorNombre';
+var idErrorCorreo = 'errorCorreo';
+var idErrorMensaje = 'errorMensaje';
+var idBtnRegresar = 'btnRegresar';
 
-    if (!/^[a-zA-Z0-9 ]+$/.test(nombre)) {
-        errorNombre.textContent = 'El nombre debe ser alfanumérico.';
+// Obtener referencias a los elementos del formulario
+var formulario = document.getElementById(idFormulario);
+var campoNombre = document.getElementById(idNombre);
+var campoCorreo = document.getElementById(idCorreo);
+var campoMensaje = document.getElementById(idMensaje);
+var errorNombre = document.getElementById(idErrorNombre);
+var errorCorreo = document.getElementById(idErrorCorreo);
+var errorMensaje = document.getElementById(idErrorMensaje);
+var btnRegresar = document.getElementById(idBtnRegresar);
+
+// Función para limpiar el formulario y los mensajes de error
+function limpiarFormulario() {
+    formulario.reset();
+    limpiarMensajesDeError();
+}
+
+// Función para limpiar los mensajes de error
+function limpiarMensajesDeError() {
+    errorNombre.innerText = '';
+    errorCorreo.innerText = '';
+    errorMensaje.innerText = '';
+}
+
+// Función para mostrar mensajes de error
+function mensajeDeError(idCampoError, valor) {
+    document.getElementById(idCampoError).innerText = valor;
+}
+
+// Función para validar que el campo no esté vacío
+function validarCampoLleno(campo, idCampoError) {
+    if (campo.trim() === "") {
+        mensajeDeError(idCampoError, "Este campo es obligatorio.");
+        return false;
+    }
+    mensajeDeError(idCampoError, "");
+    return true;
+}
+
+// Función para validar que el campo sea alfanumérico
+function validarAlfanumerico(campo, idCampoError) {
+    var regex = /^[a-zA-Z\s]+$/;
+    if (!regex.test(campo)) {
+        mensajeDeError(idCampoError, "El campo debe ser alfanumerico.");
         return false;
     }
     return true;
 }
 
-// Función para validar el correo electrónico
-function validarCorreo(correo) {
-    var errorCorreo = document.getElementById('errorCorreo');
-    errorCorreo.textContent = '';
-
-    if (!/\S+@\S+\.\S+/.test(correo)) {
-        errorCorreo.textContent = 'El email no es válido.';
+// Función para validar el formato del correo electrónico
+function validarCorreo(campo, idCampoError) {
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(campo)) {
+        mensajeDeError(idCampoError, "El formato del correo es incorrecto.");
         return false;
     }
     return true;
 }
 
-// Función para validar el mensaje
-function validarMensaje(mensaje) {
-    var errorMensaje = document.getElementById('errorMensaje');
-    errorMensaje.textContent = '';
-
-    if (mensaje.length <= 5) {
-        errorMensaje.textContent = 'El mensaje debe tener más de 5 caracteres.';
+// Función para validar la longitud del mensaje
+function validarLargo(campo, idCampoError, largoEsperado) {
+    if (campo.length < largoEsperado) {
+        mensajeDeError(idCampoError, `El mensaje debe tener más de ${largoEsperado} letras.`);
         return false;
     }
     return true;
 }
 
-// Función principal para manejar el submit
-function manejarSubmit(event) {
-    event.preventDefault();
+// Función para validar todo el formulario
+function validarFormularioContacto(event) {
+    event.preventDefault(); // Evitar que se envíe el formulario antes de la validación
 
-    var nombre = document.getElementById('nombre').value;
-    var correo = document.getElementById('correo').value;
-    var mensaje = document.getElementById('mensaje').value;
+    // Obtener los valores del formulario
+    var nombre = campoNombre.value.trim();
+    var correo = campoCorreo.value.trim();
+    var mensaje = campoMensaje.value.trim();
 
-    var esValido = validarNombre(nombre) && validarCorreo(correo) && validarMensaje(mensaje);
+    // Limpiar mensajes de error previos
+    limpiarMensajesDeError();
 
-    if (esValido) {
-        // Abrir la herramienta de envío de emails predeterminada del sistema operativo
-        var enlaceMailto = `mailto:?subject=Contacto&body=Nombre: ${nombre}%0A%0AMensaje:%0A${mensaje}`;
-        window.location.href = enlaceMailto;
+    // Validar campos
+    var valido = true;
+    valido &= validarCampoLleno(nombre, idErrorNombre);
+    valido &= validarAlfanumerico(nombre, idErrorNombre);
+    valido &= validarCorreo(correo, idErrorCorreo);
+    valido &= validarLargo(mensaje, idErrorMensaje, 5);
+
+    // Si todo es válido, puedes proceder con el envío del formulario
+    if (valido) {
+        formulario.submit();
     }
 }
 
-// Función para redirigir al index
+// Función para redirigir al índice
 function regresarAlIndex() {
-    window.location.href = '../index.html';
+    window.location.href = "../index.html";
 }
 
-// Escuchar el evento submit del formulario
-document.getElementById('formularioContacto').addEventListener('submit', manejarSubmit);
-
-// Escuchar el clic del botón de regresar
-document.getElementById('btnRegresar').addEventListener('click', regresarAlIndex);
+// Asignar los manejadores de eventos
+formulario.addEventListener("submit", validarFormularioContacto);
+btnRegresar.addEventListener("click", regresarAlIndex);
